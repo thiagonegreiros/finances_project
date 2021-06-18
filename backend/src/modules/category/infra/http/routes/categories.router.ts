@@ -1,5 +1,5 @@
+import CategoryController from '@modules/category/infra/http/controllers/CategoryController';
 import { Router } from 'express';
-import CategoryController from '../controller/CategoryController'
 
 const categoryRouter = Router();
 

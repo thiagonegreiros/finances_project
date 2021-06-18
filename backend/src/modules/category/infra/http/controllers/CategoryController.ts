@@ -1,7 +1,7 @@
 import { Request, response, Response } from 'express';
 import { getRepository } from 'typeorm';
+import Categories from '../../typeorm/repositories/Categories';
 
-import Categories from '../models/Categories'
 
 class CategoryController{
   async createCategory(req: Request, res: Response) {

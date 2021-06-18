@@ -1,6 +1,6 @@
+import Categories from '@modules/category/infra/typeorm/repositories/Categories';
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, UpdateDateColumn, Timestamp, CreateDateColumn } from 'typeorm';
-import Categories from './Categories'
-
+@Entity('accounts')
 export default class Accounts {
   
   @PrimaryGeneratedColumn("uuid")

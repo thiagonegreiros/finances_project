@@ -1,22 +1,28 @@
-import { Request, response, Response } from 'express';
-import { getRepository } from 'typeorm';
-import Categories from '../../typeorm/repositories/Categories';
+import { Request, Response } from "express";
+import { container } from "tsyringe";
 
+import { CreateCategoryService } from "@modules/category/services/CreateCategoryService";
 
-class CategoryController{
-  async createCategory(req: Request, res: Response) {
-    const repository = getRepository(Categories);
+import { CategoriesRepository } from "../../typeorm/repositories/CategoriesRepository";
+
+class CategoryController {
+  async create(req: Request, res: Response): Promise<Response> {
     const { description } = req.body;
 
-    const category = repository.create({ description });
-    await repository.save(category);
+    const createCategoryService = container.resolve(CreateCategoryService);
 
-    return res.json(category);
+    await createCategoryService.execute({ description });
+
+    return res.json(201).send();
   }
 
-  async listCategory(req: Request, res: Response) {
-    return res.json(await getRepository(Categories).find());
+  async index(req: Request, res: Response): Promise<Response> {
+    const categoryRepository = new CategoriesRepository();
+
+    const listCategory = await categoryRepository.list();
+
+    return res.json(listCategory);
   }
 }
 
-export default new CategoryController;
+export default new CategoryController();

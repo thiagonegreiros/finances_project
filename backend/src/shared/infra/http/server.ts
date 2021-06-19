@@ -2,7 +2,9 @@ import "reflect-metadata";
 
 import dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
+import "express-async-errors";
 
+import "@shared/container";
 import AppError from "@shared/errors/AppError";
 import routes from "@shared/infra/http/routes";
 import "../typeorm";

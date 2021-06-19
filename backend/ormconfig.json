@@ -5,9 +5,11 @@
   "username": "postgres",
   "password": "P@ssw0rd",
   "database": "finances",
-  "entities": ["./src/models/**/*.ts"],
-  "migrations": ["./src/migrations/*.ts"],
+  "synchronize": false,
+  "entities": ["./src/modules/**/infra/typeorm/entities/*.ts"],
+  "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
   "cli": {
-    "migrationsDir": "./src/migrations/"
+    "entitiesDir": "./src/modules/**/infra/typeorm/entities",
+    "migrationsDir": "./src/shared/infra/typeorm/migrations"
   }
 }]

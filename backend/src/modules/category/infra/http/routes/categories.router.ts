@@ -1,10 +1,10 @@
-import CategoryController from '@modules/category/infra/http/controllers/CategoryController';
-import { Router } from 'express';
+import { Router } from "express";
+
+import CategoryController from "@modules/category/infra/http/controllers/CategoryController";
 
 const categoryRouter = Router();
 
-categoryRouter.get('/', CategoryController.listCategory);
-categoryRouter.post('/save', CategoryController.createCategory);
-
+categoryRouter.post("/", CategoryController.create);
+categoryRouter.get("/", CategoryController.index);
 
 export default categoryRouter;

@@ -1,10 +1,22 @@
-import Categories from '@modules/category/infra/typeorm/repositories/Categories';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, UpdateDateColumn, Timestamp, CreateDateColumn } from 'typeorm';
-@Entity('accounts')
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  JoinColumn,
+  UpdateDateColumn,
+  Timestamp,
+  CreateDateColumn,
+  OneToMany,
+  ManyToOne,
+} from "typeorm";
+import { v4 as uuidV4 } from "uuid";
+
+import { Category } from "@modules/category/infra/typeorm/entities/Category";
+
+@Entity("accounts")
 export default class Accounts {
-  
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  id?: string;
 
   @Column("decimal", { precision: 5, scale: 2 })
   price: number;
@@ -19,15 +31,21 @@ export default class Accounts {
   status_account: boolean;
 
   @Column()
-  category_id: number;
+  category_id: string;
 
-  @OneToOne(type => Categories)
-  @JoinColumn({name: "category_id"})
-  categories: Categories
+  @ManyToOne(() => Category, (category) => category.account)
+  @JoinColumn({ name: "category_id" })
+  category: Category;
 
   @UpdateDateColumn()
   update_at: Timestamp;
 
   @CreateDateColumn()
   created_at: Timestamp;
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuidV4();
+    }
+  }
 }
